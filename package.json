@@ -1,0 +1,19 @@
+{
+  "name": "deep-level-searching",
+  "version": "1.0.5",
+  "description": "Search through object properties recursively at any level.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "deepsearch",
+    "nestedsearch",
+    "search",
+    "immutable",
+    "nested",
+    "objectsearch"
+  ],
+  "author": "Chhavi Kohli",
+  "license": "ISC"
+}
