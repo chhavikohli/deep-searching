@@ -38,32 +38,27 @@ function deepSearch(
   keys = [...new Set(keys)];
 
   // Perform searching on nested array only on include keys.
-  let filteredResults = Object.keys(flatObject).filter((k) => {
-    // Searching by key
-    if (searchByKey && searchByKey.trim().length) {
-      if (
-        flatObject[searchByKey]
-          .toString()
-          .toLowerCase()
-          .includes(keyword.toLowerCase())
-      ) {
-        return true;
-      }
-    } else {
-      // Searching on all the keys except keys that are passed in excludeArray.
-      const shouldExclude = options.exclude.indexOf(k.split(".").pop()) > -1;
+  let filteredResults = Object.keys(flatObject).filter((key) => {
+
+   
+      const attributeKey = key.split(".").pop();
+      const shouldExclude = options.exclude.indexOf(attributeKey) > -1;
       if (shouldExclude) {
         return false;
       }
-      if (!flatObject[k]) {
+      if (!flatObject[key]) {
         return false;
       }
-      if (
-        flatObject[k].toString().toLowerCase().includes(keyword.toLowerCase())
-      ) {
+      const isMatching = flatObject[key].toString().toLowerCase().includes(keyword.toLowerCase());
+      if(options.searchByKey && options.searchByKey.trim() === attributeKey && isMatching){
+        // Searching obn fixed key attribute
+          return true;
+      }
+      if (!options.searchByKey && isMatching) {
+        // Searching on all the keys except keys that are passed in excludeArray.
         return true;
       }
-    }
+
   });
 
   filteredResults.map((result) => {
