@@ -1,6 +1,6 @@
 {
   "name": "deep-level-searching",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Search through object properties recursively at any level.",
   "main": "index.js",
   "scripts": {
@@ -19,5 +19,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/chhavikohli/deep-searching.git"
-}
+  }
 }
