@@ -73,7 +73,7 @@ let filteredData = deepSearch(keyword,nestedArray,{excluded:excludedKeys});
 ```
 
 <!-- EXAMPLES -->
-## Examples
+## Example
 
 ```sh
 import {deepSearch} from 'deep-level-searching';
