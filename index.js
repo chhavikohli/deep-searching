@@ -7,8 +7,8 @@ const flatten = require("./flatten");
 
 /**
  * It performs searching on input artifacts
- * @param {*} keyword - search string
- * @param {*} artifacts - nested array or object
+ * @param {string} keyword - search string
+ * @param {array} artifacts - nested array or object
  * @param {*} options[optional] - exclude(array of keys that needs to be excluded while searching)
  */
 function deepSearch(
@@ -24,14 +24,7 @@ function deepSearch(
   // Extract all the keys of flatten objects
   let flatKeys = Object.keys(flatObject);
   let keys = flatKeys.map((key) => {
-    const splitKey = key.split(".");
-    const last = splitKey.pop();
-    const secondLast = splitKey.pop();
-    if (isNaN(Number(secondLast))) {
-      return `${secondLast}.${last}`;
-    } else {
-      return last;
-    }
+     return extractKey(key);
   });
 
   // Remove duplicate keys
@@ -39,10 +32,9 @@ function deepSearch(
 
   // Perform searching on nested array only on include keys.
   let filteredResults = Object.keys(flatObject).filter((key) => {
-
    
-      const attributeKey = key.split(".").pop();
-      const shouldExclude = options.exclude.indexOf(attributeKey) > -1;
+      const attributeKey = extractKey(key);
+      const shouldExclude = options.exclude && options.exclude.indexOf(attributeKey) > -1;
       if (shouldExclude) {
         return false;
       }
@@ -89,6 +81,17 @@ function deepSearch(
 
   // unflatten result and return filtered data
   return flatten.unflatten(filteredKeyValue);
+}
+
+function extractKey(key){
+  const splitKey = key.split(".");
+    const last = splitKey.pop();
+    const secondLast = splitKey.pop();
+    if (isNaN(Number(secondLast))) {
+      return `${secondLast}.${last}`;
+    } else {
+      return last;
+    }
 }
 
 exports.deepSearch = deepSearch;
