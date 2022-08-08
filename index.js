@@ -42,7 +42,7 @@ function deepSearch(keyword, artifacts, options = { excluded: [] }) {
     if (!flatObject[k]) {
       return false;
     }
-    if (flatObject[k].toString().includes(keyword)) {
+    if (flatObject[k].toString().toLowerCase().includes(keyword.toLowerCase())) {
       return true;
     }
   });
