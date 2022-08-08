@@ -9,9 +9,13 @@ const flatten = require("./flatten");
  * It performs searching on input artifacts
  * @param {*} keyword - search string
  * @param {*} artifacts - nested array or object
- * @param {*} options[optional] - excluded(array of keys that needs to be excluded while searching)
+ * @param {*} options[optional] - exclude(array of keys that needs to be excluded while searching)
  */
-function deepSearch(keyword, artifacts, options = { excluded: [] }) {
+function deepSearch(
+  keyword,
+  artifacts,
+  options = { exclude: [], searchByKey: "" }
+) {
   let filteredKeyValue = {};
   let expandedResult = [];
   // flatten array of object
@@ -35,15 +39,30 @@ function deepSearch(keyword, artifacts, options = { excluded: [] }) {
 
   // Perform searching on nested array only on include keys.
   let filteredResults = Object.keys(flatObject).filter((k) => {
-    const shouldExclude = options.excluded.indexOf(k.split(".").pop()) > -1;
-    if (shouldExclude) {
-      return false;
-    }
-    if (!flatObject[k]) {
-      return false;
-    }
-    if (flatObject[k].toString().toLowerCase().includes(keyword.toLowerCase())) {
-      return true;
+    // Searching by key
+    if (searchByKey && searchByKey.trim().length) {
+      if (
+        flatObject[searchByKey]
+          .toString()
+          .toLowerCase()
+          .includes(keyword.toLowerCase())
+      ) {
+        return true;
+      }
+    } else {
+      // Searching on all the keys except keys that are passed in excludeArray.
+      const shouldExclude = options.exclude.indexOf(k.split(".").pop()) > -1;
+      if (shouldExclude) {
+        return false;
+      }
+      if (!flatObject[k]) {
+        return false;
+      }
+      if (
+        flatObject[k].toString().toLowerCase().includes(keyword.toLowerCase())
+      ) {
+        return true;
+      }
     }
   });
 
