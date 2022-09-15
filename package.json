@@ -1,6 +1,6 @@
 {
   "name": "deep-level-searching",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Search through object properties recursively at any level.",
   "main": "index.js",
   "scripts": {
