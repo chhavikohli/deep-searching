@@ -95,7 +95,6 @@ function extractKey(key) {
 }
 
 function clean(object) {
-	console.log('cleaning empty values');
 	Object.entries(object)
 		.slice()
 		.reverse()
