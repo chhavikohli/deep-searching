@@ -99,9 +99,13 @@ function clean(object) {
 		.slice()
 		.reverse()
 		.forEach(([k, v]) => {
-			console.log('----kkkk---',k)
-			console.log('----vvvv---',v)
 			if (v && typeof v === "object") {
+				if(Array.isArray(v)){
+					object[k] = v.filter(function (el) {
+						return el != null;
+					  });
+				}
+				v = object[k];
 				clean(v);
 			}
 			if (
