@@ -78,9 +78,9 @@ function deepSearch(
 			filteredKeyValue[f] = flatObject[f];
 		}
 	});
-
 	// unflatten result and return filtered data
-	return flatten.unflatten(filteredKeyValue);
+	const cleanedValue = clean(flatten.unflatten(filteredKeyValue))
+	return cleanedValue ;
 }
 
 function extractKey(key) {
@@ -95,6 +95,7 @@ function extractKey(key) {
 }
 
 function clean(object) {
+	console.log('cleaning empty values');
 	Object.entries(object)
 		.slice()
 		.reverse()
@@ -125,7 +126,6 @@ function clean(object) {
 }
 
 module.exports = {
-	deepSearch,
-	clean
+	deepSearch
 }
 
