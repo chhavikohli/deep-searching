@@ -46,6 +46,14 @@ function deepSearch(
 			// Searching obn fixed key attribute
 			return true;
 		}
+		if(Array.isArray(keyword)){
+			const isPresent = flatObject[key].includes(keyword);
+				if (options.searchByKey && options.searchByKey.trim() && attributeKey.indexOf(searchByKey) > -1 && isPresent) {
+					// Searching obn fixed key attribute
+					return true;
+			}
+		}
+	
 		if (!options.searchByKey && isMatching) {
 			// Searching on all the keys except keys that are passed in excludeArray.
 			return true;
