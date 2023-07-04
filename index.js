@@ -41,17 +41,18 @@ function deepSearch(
 		if (!flatObject[key]) {
 			return false;
 		}
-		const isMatching = flatObject[key].toString().toLowerCase().includes(keyword.toLowerCase());
-		if (options.searchByKey && options.searchByKey.trim() === attributeKey && isMatching) {
-			// Searching obn fixed key attribute
-			return true;
-		}
 		if(Array.isArray(keyword)){
 			const isPresent = flatObject[key].includes(keyword);
 				if (options.searchByKey && options.searchByKey.trim() && attributeKey.indexOf(searchByKey) > -1 && isPresent) {
 					// Searching obn fixed key attribute
 					return true;
 			}
+		}
+		
+		const isMatching = flatObject[key].toString().toLowerCase().includes(keyword.toLowerCase());
+		if (options.searchByKey && options.searchByKey.trim() === attributeKey && isMatching) {
+			// Searching obn fixed key attribute
+			return true;
 		}
 	
 		if (!options.searchByKey && isMatching) {
