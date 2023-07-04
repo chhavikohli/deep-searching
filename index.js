@@ -41,20 +41,20 @@ function deepSearch(
 		if (!flatObject[key]) {
 			return false;
 		}
-		if(Array.isArray(keyword)){
-			const isPresent = flatObject[key].includes(keyword);
-				if (options.searchByKey && options.searchByKey.trim() && attributeKey.indexOf(searchByKey) > -1 && isPresent) {
-					// Searching obn fixed key attribute
-					return true;
+		if (Array.isArray(keyword)) {
+			const isPresent = keyword.indexOf(flatObject[key])>-1;
+			if (options.searchByKey && options.searchByKey.trim() && attributeKey.indexOf(options.searchByKey) > -1 && isPresent) {
+				// Searching obn fixed key attribute
+				return true;
 			}
 		}
-		
-		const isMatching = flatObject[key].toString().toLowerCase().includes(keyword.toLowerCase());
+
+		const isMatching = flatObject[key].toString().toLowerCase().includes(keyword.toLowerCase && keyword.toLowerCase());
 		if (options.searchByKey && options.searchByKey.trim() === attributeKey && isMatching) {
 			// Searching obn fixed key attribute
 			return true;
 		}
-	
+
 		if (!options.searchByKey && isMatching) {
 			// Searching on all the keys except keys that are passed in excludeArray.
 			return true;
@@ -89,7 +89,7 @@ function deepSearch(
 	});
 	// unflatten result and return filtered data
 	const cleanedValue = clean(flatten.unflatten(filteredKeyValue))
-	return cleanedValue ;
+	return cleanedValue;
 }
 
 function extractKey(key) {
@@ -109,10 +109,10 @@ function clean(object) {
 		.reverse()
 		.forEach(([k, v]) => {
 			if (v && typeof v === "object") {
-				if(Array.isArray(v)){
+				if (Array.isArray(v)) {
 					object[k] = v.filter(function (el) {
 						return el != null;
-					  });
+					});
 				}
 				v = object[k];
 				clean(v);
